@@ -267,7 +267,7 @@ void Add_product_in_list(vector<Product> &vProduct){
 			break;
 		}  
 	}
-	if (Found == 0){
+	if (!Found){
 		product.setID(ID);
 		product.setName(Name);
 		product.setPrice(Price);
@@ -295,7 +295,7 @@ void Delete_product_in_list(vector <Product> &vProduct){
 			break;
 		}
 	}
-	if (Found == 0){
+	if (!Found){
 		cout << "We could'nt find such ID " << ID << endl;
 	}
 	UserBack();
@@ -304,6 +304,32 @@ void Delete_product_in_list(vector <Product> &vProduct){
 
 
 
+void Save_changes(vector <Product> &vProduct){
+	 system("cls");
+    ofstream File("Product_Menegmant.csv");
+    if (!File.is_open())
+    {
+        cout << "Error opening file!\n";
+        UserBack();
+        return;
+    }
+    for (int i = 0; i < vProduct.size(); i++)
+    {
+        File << vProduct[i].getID() << ","
+             << vProduct[i].getName() << ","
+             << vProduct[i].getPrice() << ","
+             << vProduct[i].getQuantity();
+
+        if (i != vProduct.size() - 1)
+        {
+            File << '\n';
+        }
+    }
+    File.close();
+    cout << "Changes saved successfully!\n";
+    UserBack();
+}
+
 
 void digitalLogic(vector<Product> &vProduct){
 	sort(vProduct.begin(), vProduct.end(), compareByID);
@@ -311,17 +337,20 @@ void digitalLogic(vector<Product> &vProduct){
 		int userEnter; cin >> userEnter;
 		switch(userEnter){
 			case 1: 
-			List_of_product(vProduct);
-			break;
+				List_of_product(vProduct);
+				break;
 			case 2:
-			Find_product_in_list(vProduct);
+				Find_product_in_list(vProduct);
 				break;
 			case 3:
-			Add_product_in_list(vProduct);
-			break;
+				Add_product_in_list(vProduct);
+				break;
 			case 4:
-			Delete_product_in_list(vProduct);
-			break;
+				Delete_product_in_list(vProduct);
+				break;
+			case 5:
+				Save_changes(vProduct);
+				break;
 		}
 	}
 }
@@ -336,9 +365,8 @@ int main(){
 	
 	File.open("Product_Menegmant.csv", ios::in);
 	vector <Product> vProduct;
-	
 	Converter(File, vProduct);
+	File.close();
 	
 	digitalLogic(vProduct);
-	File.close();
 }
