@@ -49,9 +49,8 @@ void CompilerScrean(){
 	cout << "2. Search\n";
 	cout << "3. Add\n";
 	cout << "4. Delete\n";
-	cout << "5. Inventory value\n";
-	cout << "6. Save changes\n";
-	cout << "7. Save and exit\n";
+	cout << "5. Save changes\n";
+	cout << "6. Save and exit\n";
 }
 
 
@@ -100,16 +99,22 @@ void UserBack(){
 
 
 
-
 void List_of_product(vector<Product> &vProduct){
 	system("cls");
+	int TotalPrice = 0, TotalQuantity = 0, TotalValue = 0;
 	for (int i=0; i<vProduct.size(); i++){
+		TotalPrice = TotalPrice + vProduct[i].getPrice();
+		TotalQuantity = TotalQuantity + vProduct[i].getQuantity();
+		TotalValue = TotalValue + vProduct[i].getPrice() * vProduct[i].getQuantity();
 		cout << "ID: " << vProduct[i].getID() << endl;
 		cout << "Name: " << vProduct[i].getName() << endl;
 		cout << "Price: " << vProduct[i].getPrice() << endl;
 		cout << "Quantity: " << vProduct[i].getQuantity() << endl;
 		cout << "------------------" << endl;
 	}
+	cout << "Total Price: " << TotalPrice << endl;
+	cout << "Total Quantity: " << TotalQuantity << endl;
+	cout << "Total Value: " << TotalValue << endl << endl;
 	UserBack();
 }
 
@@ -295,6 +300,7 @@ void Delete_product_in_list(vector <Product> &vProduct){
 	}
 	UserBack();
 }
+
 
 
 
