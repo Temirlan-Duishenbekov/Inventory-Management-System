@@ -278,13 +278,31 @@ void Add_product_in_list(vector<Product> &vProduct){
 
 
 void Delete_product_in_list(vector <Product> &vProduct){
-	cout << "nothing";
+	system("cls");
+	cout << "Enter ID \n";
+	int ID; cin >> ID; 
+	bool Found = false;
+	for (int i=0; i<vProduct.size(); i++){
+		if(vProduct[i].getID() == ID){
+			vProduct.erase(vProduct.begin() + i);
+			cout << "Product is successfully deleted \n";
+			Found = true;
+			break;
+		}
+	}
+	if (Found == 0){
+		cout << "We could'nt find such ID " << ID << endl;
+	}
+	UserBack();
 }
+
+
+
+
 void digitalLogic(vector<Product> &vProduct){
 	sort(vProduct.begin(), vProduct.end(), compareByID);
 	while (true){
-		int userEnter;
-		cin >> userEnter;
+		int userEnter; cin >> userEnter;
 		switch(userEnter){
 			case 1: 
 			List_of_product(vProduct);
@@ -294,8 +312,10 @@ void digitalLogic(vector<Product> &vProduct){
 				break;
 			case 3:
 			Add_product_in_list(vProduct);
+			break;
 			case 4:
 			Delete_product_in_list(vProduct);
+			break;
 		}
 	}
 }
