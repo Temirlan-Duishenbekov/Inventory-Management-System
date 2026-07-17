@@ -277,7 +277,9 @@ void Add_product_in_list(vector<Product> &vProduct){
 
 
 
-
+void Delete_product_in_list(vector <Product> &vProduct){
+	cout << "nothing";
+}
 void digitalLogic(vector<Product> &vProduct){
 	sort(vProduct.begin(), vProduct.end(), compareByID);
 	while (true){
@@ -292,7 +294,8 @@ void digitalLogic(vector<Product> &vProduct){
 				break;
 			case 3:
 			Add_product_in_list(vProduct);
-			
+			case 4:
+			Delete_product_in_list(vProduct);
 		}
 	}
 }
