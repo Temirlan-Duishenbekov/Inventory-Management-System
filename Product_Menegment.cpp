@@ -331,9 +331,36 @@ void Save_changes(vector <Product> &vProduct){
 }
 
 
+
+void Save_exit(vector <Product> &vProduct){
+	system("cls");
+    ofstream File("Product_Menegmant.csv");
+    if (!File.is_open())
+    {
+        cout << "Error opening file!\n";
+        UserBack();
+        return;
+    }
+    for (int i = 0; i < vProduct.size(); i++)
+    {
+        File << vProduct[i].getID() << ","
+             << vProduct[i].getName() << ","
+             << vProduct[i].getPrice() << ","
+             << vProduct[i].getQuantity();
+
+        if (i != vProduct.size() - 1)
+        {
+            File << '\n';
+        }
+    }
+    File.close();
+    cout << "Changes saved successfully!\n";
+    
+}
 void digitalLogic(vector<Product> &vProduct){
 	sort(vProduct.begin(), vProduct.end(), compareByID);
-	while (true){
+	int UserExit = false;
+	while (UserExit != true){
 		int userEnter; cin >> userEnter;
 		switch(userEnter){
 			case 1: 
@@ -350,6 +377,10 @@ void digitalLogic(vector<Product> &vProduct){
 				break;
 			case 5:
 				Save_changes(vProduct);
+				break;
+			case 6:
+				Save_exit(vProduct);
+				UserExit = true;
 				break;
 		}
 	}
